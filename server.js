@@ -39,7 +39,6 @@ router.route('/projects')
         req.body.url + "$$, $$" +
         req.body.title + "$$, $$" +
         req.body.description + "$$);");
-        console.log(qs);
         client.query(qs, function(error, result) {
           if(error) {
             console.log(error);
@@ -49,7 +48,6 @@ router.route('/projects')
             res.statusCode = 200;
             client.query('SELECT LASTVAL()', function(error, result) {
               res.json({id: Number(result.rows[0].lastval), url: req.body.url, title: req.body.title, description: req.body.description });
-              console.log({id: Number(result.rows[0].lastval), url: req.body.url, title: req.body.title, description: req.body.description });
             });
           }
         });
@@ -65,7 +63,10 @@ router.route('/projects/:id')
         if(error) {
           res.statusCode = 404;  
         } else {
-          if(result) {
+          if(result.rows.length == 0){
+            res.statusCode = 404;
+          } else
+          {
             res.statusCode = 200;
           }
         }
@@ -81,15 +82,16 @@ router.route('/projects/:id')
         if(error) {
           res.statusCode = 404;  
         } else {
-          console.log(result);
-          if(result) {
-            res.statusCode = 200;
+          if(result.rows.length == 0) {
+            res.statusCode = 404;  
+          } else {
             var q = ("DELETE FROM projects WHERE id = "+ req.params.id);
-            var que = client.query(q);
+            res.statusCode = 200;
+            client.query(q);
           }
         }
+        res.json({ message: "any" });
       });
-      res.json({ message: "any" });
     });
   })
 
