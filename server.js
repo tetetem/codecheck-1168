@@ -32,9 +32,11 @@ router.route('/projects')
   .post(function(req, res) {
     if(req.body.title == undefined || req.body.description == undefined) {
       res.statusCode = 400;
+      console.log("title or description undefined");
       res.json({ message: "any" });
     } else {
       pg.connect(db, function(err, client) {
+        console.log("sucessfully connected");
         var qs = ("INSERT INTO projects(url, title, description) VALUES (" + "$$" +
         req.body.url + "$$, $$" +
         req.body.title + "$$, $$" +
