@@ -30,6 +30,8 @@ router.route('/projects')
   })
 
   .post(function(req, res) {
+    console.log("body: "+req.body);
+    console.log("params: "+req.params);
     if(req.body.title == undefined || req.body.description == undefined) {
       res.statusCode = 400;
       console.log("title or description undefined");
