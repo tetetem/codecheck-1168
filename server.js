@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var pg = require('pg');
-var db = "tcp://postgres:postgres@localhost:5432/postgres";
+var db = "tcp://qcgffoigvaopwm:uPpXEcKghEWSXsJSkvmoyv_ESh@ec2-54-83-198-159.compute-1.amazonaws.com:5432/d1k38il97kqurk";
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
