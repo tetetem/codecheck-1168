@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var sqlite3 = require('pg').verbose();
-var db = new sqlite3.Database('db.sqlite3');
+var db = "tcp://;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
