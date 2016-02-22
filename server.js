@@ -12,7 +12,6 @@ var port = process.env.PORT || 3000;
 var router = express.Router();
 
 router.use(function(req, res, next) {
-  console.log('Some thing happened');
   next();
 });
 
@@ -24,7 +23,6 @@ app.use('/api', router);
 
 app.listen(port);    
 
-var sqlInsert = 'INSERT INTO projects VALUES (NULL, ?, ?, ?, NULl)';
 router.route('/projects')
   .get(function(req, res) {
     res.statusCode = 200;
@@ -32,23 +30,24 @@ router.route('/projects')
   })
 
   .post(function(req, res) {
-    var stmt = db.prepare(sqlInsert);
     if(req.body.title == undefined || req.body.description == undefined) {
       res.statusCode = 400;
+      res.json({ message: "any" });
     } else {
-      stmt.run(
+      db.run('INSERT INTO projects(url, title, description) VALUES (?, ?, ?)',
         req.body.url,
         req.body.title,
         req.body.description
         , function(err) {
           if(err) {
             res.statusCode = 400;  
+            res.json({ message: "any" });
           } else {
             res.statusCode = 200;
+    res.json({id: this.lastID, url: req.body.url, title: req.body.title, description: req.body.description });
           }
         });
     }
-    res.json({ message: "any"});
   });
 
 router.route('/projects/:id')
