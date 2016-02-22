@@ -1,8 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var sqlite3 = require('pg').verbose();
-var db = "tcp://;
+var pg = require('pg');
+var db = "tcp://postgres:hoge@localhost:5432/postgres"
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
