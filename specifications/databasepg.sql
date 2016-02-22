@@ -5,5 +5,5 @@ create table projects (
     url varchar(255) NULL,
     title varchar(255) NOT NULL,
     description text NOT NULL,
-    created_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
